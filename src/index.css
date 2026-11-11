@@ -1,0 +1,240 @@
+@import "tailwindcss";
+
+/* ---------- Theme tokens (light by default, dark via OS or toggle) ---------- */
+:root {
+  --bg: #f4f5f2;
+  --surface: #ffffff;
+  --ink: #12161d;
+  --muted: #586070;
+  --rule: #d6d9d3;
+  --accent: #e0400f;
+  --accent2: #ff9a1f;
+  --accent-ink: #ffffff;
+  --ok: #1a7f46;
+
+  /* "Stage" = the hero and contact bands. Warm cream in light mode. */
+  --night: #fbf7f1;
+  --cream: #12161d;
+  --haze: #586070;
+  --line: #e6e0d6;
+  --ember: #e0400f;
+  --amber: #b85400;
+  --stage-border: #d6cfc3;
+  --stage-card: rgb(255 255 255 / 0.78);
+  --stage-shadow: rgb(90 50 20 / 0.16);
+  --stage-glow: 0.42;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0c0f14;
+    --surface: #151a21;
+    --ink: #eef0eb;
+    --muted: #9aa3b0;
+    --rule: #262c36;
+    --accent: #ff6a3d;
+    --accent2: #ffb347;
+    --accent-ink: #0c0f14;
+    --ok: #4cd48a;
+    --night: #0a0d12;
+    --cream: #f3f1ec;
+    --haze: #a7aebb;
+    --line: #2a303b;
+    --ember: #ff6a3d;
+    --amber: #ffb347;
+    --stage-border: #3a4150;
+    --stage-card: rgb(24 29 38 / 0.72);
+    --stage-shadow: rgb(0 0 0 / 0.6);
+    --stage-glow: 1;
+    color-scheme: dark;
+  }
+}
+
+:root[data-theme="dark"] {
+  --bg: #0c0f14;
+  --surface: #151a21;
+  --ink: #eef0eb;
+  --muted: #9aa3b0;
+  --rule: #262c36;
+  --accent: #ff6a3d;
+  --accent2: #ffb347;
+  --accent-ink: #0c0f14;
+  --ok: #4cd48a;
+  --night: #0a0d12;
+  --cream: #f3f1ec;
+  --haze: #a7aebb;
+  --line: #2a303b;
+  --ember: #ff6a3d;
+  --amber: #ffb347;
+  --stage-border: #3a4150;
+  --stage-card: rgb(24 29 38 / 0.72);
+  --stage-shadow: rgb(0 0 0 / 0.6);
+  --stage-glow: 1;
+  color-scheme: dark;
+}
+
+/* Theme-aware colours: bg-bg, text-ink, border-rule, text-accent ... */
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-ink: var(--ink);
+  --color-muted: var(--muted);
+  --color-rule: var(--rule);
+  --color-accent: var(--accent);
+  --color-accent2: var(--accent2);
+  --color-accent-ink: var(--accent-ink);
+  --color-ok: var(--ok);
+
+  /* Hero + contact colours, also theme-aware */
+  --color-night: var(--night);
+  --color-cream: var(--cream);
+  --color-haze: var(--haze);
+  --color-line: var(--line);
+  --color-ember: var(--ember);
+  --color-amber: var(--amber);
+  --color-stage-border: var(--stage-border);
+  --color-stage-card: var(--stage-card);
+}
+
+@theme {
+  --font-display: "Bricolage Grotesque", "Helvetica Neue", Arial, sans-serif;
+  --font-body: "Instrument Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
+
+  --color-live: #29d17a;
+
+  /* Fluid type scale: each size grows linearly from a 360px to a 1536px wide
+     screen, then stops. Uses rem so browser zoom / font settings still apply. */
+  --text-2xs: clamp(0.625rem, calc(0.625rem + 1.5 * (100vw - 22.5rem) / 1176), 0.7188rem); /* 10→11.5px  tiny mono tags on hero cards */
+  --text-xs: clamp(0.6875rem, calc(0.6875rem + 1.5 * (100vw - 22.5rem) / 1176), 0.7813rem); /* 11→12.5px  tags, pills, counters */
+  --text-label: clamp(0.7188rem, calc(0.7188rem + 2 * (100vw - 22.5rem) / 1176), 0.8438rem); /* 11.5→13.5px  mono section labels, dates */
+  --text-sm: clamp(0.8125rem, calc(0.8125rem + 1.5 * (100vw - 22.5rem) / 1176), 0.9063rem); /* 13→14.5px  captions, nav links, small buttons */
+  --text-md: clamp(0.875rem, calc(0.875rem + 2 * (100vw - 22.5rem) / 1176), 1rem); /* 14→16px  buttons, demo text, contact links (mobile) */
+  --text-base: clamp(0.9375rem, calc(0.9375rem + 3 * (100vw - 22.5rem) / 1176), 1.125rem); /* 15→18px  body copy */
+  --text-lg: clamp(1rem, calc(1rem + 3.5 * (100vw - 22.5rem) / 1176), 1.2188rem); /* 16→19.5px  lede, job role, contact links */
+  --text-role: clamp(1.1875rem, calc(1.1875rem + 11 * (100vw - 22.5rem) / 1176), 1.875rem); /* 19→30px  "I build ..." line */
+  --text-marquee: clamp(1.0625rem, calc(1.0625rem + 7 * (100vw - 22.5rem) / 1176), 1.5rem); /* 17→24px  scrolling tech names */
+  --text-title-sm: clamp(1.375rem, calc(1.375rem + 10 * (100vw - 22.5rem) / 1176), 2rem); /* 22→32px  skill detail, education */
+  --text-title: clamp(1.5rem, calc(1.5rem + 16 * (100vw - 22.5rem) / 1176), 2.5rem); /* 24→40px  job and project names */
+  --text-card-value: clamp(2.125rem, calc(2.125rem + 12 * (100vw - 22.5rem) / 1176), 2.875rem); /* 34→46px  big number on hero card */
+  --text-metric: clamp(2.5rem, calc(2.5rem + 20 * (100vw - 22.5rem) / 1176), 3.75rem); /* 40→60px  project metric */
+  --text-stat: clamp(2.25rem, calc(2.25rem + 32 * (100vw - 22.5rem) / 1176), 4.25rem); /* 36→68px  impact numbers */
+  --text-h2: clamp(2.125rem, calc(2.125rem + 38 * (100vw - 22.5rem) / 1176), 4.5rem); /* 34→72px  section titles */
+  --text-contact: clamp(1.875rem, calc(1.875rem + 62 * (100vw - 22.5rem) / 1176), 5.75rem); /* 30→92px  contact headline */
+  --text-index: clamp(4.5rem, calc(4.5rem + 32 * (100vw - 22.5rem) / 1176), 6.5rem); /* 72→104px  outlined project number */
+  --text-h1: clamp(3.125rem, calc(3.125rem + 86 * (100vw - 22.5rem) / 1176), 8.5rem); /* 50→136px  hero name */
+
+  --ease-snap: cubic-bezier(0.2, 0.8, 0.2, 1);
+
+  /* Looping, decorative animations: pure CSS, no JS needed */
+  --animate-drift: drift 16s ease-in-out infinite alternate;
+  --animate-bob: bob 6s ease-in-out infinite alternate;
+  --animate-marquee: marquee 38s linear infinite;
+  --animate-live: live 2s infinite;
+  --animate-ring: ring 2s infinite;
+  --animate-caret: caret 1s steps(1) infinite;
+  --animate-glow: glow 1.6s ease-in-out infinite;
+
+  @keyframes drift {
+    to { transform: translate(60px, 40px) scale(1.15); }
+  }
+  @keyframes bob {
+    from { transform: translateY(-8px); }
+    to { transform: translateY(10px); }
+  }
+  @keyframes marquee {
+    to { transform: translateX(-50%); }
+  }
+  @keyframes live {
+    0% { box-shadow: 0 0 0 0 rgb(41 209 122 / 0.6); }
+    80%, 100% { box-shadow: 0 0 0 10px rgb(41 209 122 / 0); }
+  }
+  @keyframes ring {
+    0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--accent) 55%, transparent); }
+    100% { box-shadow: 0 0 0 16px transparent; }
+  }
+  @keyframes caret {
+    50% { border-color: transparent; }
+  }
+  @keyframes glow {
+    50% { background: color-mix(in srgb, var(--accent) 16%, transparent); }
+  }
+}
+
+/* ---------- Small custom utilities ---------- */
+@utility wrap {
+  max-width: 1120px;
+  margin-inline: auto;
+  padding-inline: 16px;
+  @media (width >= 40rem) {
+    padding-inline: 24px;
+  }
+  @media (width >= 96rem) {
+    max-width: 1280px;
+  }
+}
+
+@utility bg-grad {
+  background-image: linear-gradient(100deg, var(--accent), var(--accent2));
+}
+
+@utility bg-grad-hero {
+  background-image: linear-gradient(100deg, var(--accent), var(--accent2));
+}
+
+@utility text-grad {
+  background-image: linear-gradient(100deg, var(--accent), var(--accent2));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+@utility text-grad-hero {
+  background-image: linear-gradient(100deg, var(--accent), var(--accent2));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+@utility highlight {
+  background: linear-gradient(transparent 60%, color-mix(in srgb, var(--accent) 28%, transparent) 0);
+}
+
+/* ---------- Base ---------- */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 72px;
+  }
+  body {
+    @apply bg-bg font-body text-ink antialiased;
+    font-size: var(--text-base);
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+  a {
+    color: inherit;
+  }
+  :focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+  select {
+    @apply w-full rounded-lg border border-rule bg-surface p-2.5 text-[15px] font-medium text-ink transition-colors hover:border-accent;
+  }
+}
+
+/* Respect the OS "reduce motion" setting for every CSS animation.
+   Motion (JS) animations are handled by <MotionConfig reducedMotion="user">. */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}
