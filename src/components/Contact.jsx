@@ -29,6 +29,12 @@ const icons = {
     </>
   ),
   check: <path d="m5 12 5 5 9-10" />,
+  resume: (
+    <>
+      <path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z" />
+      <path d="M14 3v5h5M9 13h6M9 17h4" />
+    </>
+  ),
 }
 
 function CopyButton({ value, label }) {
@@ -82,6 +88,7 @@ const rows = [
   { icon: 'phone', href: `tel:${profile.phone.replace(/\s/g, '')}`, text: profile.phoneDisplay, label: 'Phone', copy: profile.phone, copyLabel: 'Copy phone number' },
   { icon: 'linkedin', href: profile.linkedin, text: profile.linkedin.replace('https://www.', ''), label: 'LinkedIn', external: true },
   { icon: 'github', href: profile.github, text: profile.github.replace('https://', ''), label: 'GitHub', external: true },
+  { icon: 'resume', href: profile.resume, text: 'Resume (PDF)', label: 'Resume, PDF', external: true },
 ]
 
 export default function Contact() {

@@ -10,6 +10,8 @@ export const profile = {
   phoneDisplay: '+91 96935 12499',
   linkedin: 'https://www.linkedin.com/in/paramjeet-singh-dev',
   github: 'https://github.com/Paramjeet29',
+  // The PDF lives in public/. To update it, replace that file (keep the name) and redeploy.
+  resume: '/Paramjeet_Singh_Resume.pdf',
 }
 
 export const roles = ['React.js', 'Next.js', 'TypeScript', 'Node.js', 'enterprise']
@@ -99,6 +101,16 @@ export const projects = [
     metric: '40%',
     metricText: 'faster form submission',
     demo: 'steps',
+  },
+  {
+    kicker: 'Personal project',
+    title: 'Hoku',
+    text: 'An app for friends on a trip, especially motorcycle rides. Log shared costs, see who owes whom and settle up by UPI. It also plans curvy routes with warnings for rain, no signal and fuel gaps, and it works fully offline, then syncs when you’re back online.',
+    tags: ['React 19', 'TypeScript', 'PWA', 'Cloudflare Workers', 'Postgres'],
+    metric: '226',
+    metricText: 'automated frontend tests in CI',
+    link: { href: 'https://hokuapp.pages.dev', text: 'Open the app' },
+    demo: 'split',
   },
 ]
 

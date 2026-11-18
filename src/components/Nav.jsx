@@ -3,6 +3,7 @@ import { motion } from 'motion/react'
 import Button from './ui/Button.jsx'
 import HireDialog from './HireDialog.jsx'
 import { toggleTheme, useActiveSection } from '../hooks/index.js'
+import { profile } from '../data.js'
 
 const links = [
   ['work', 'Experience'],
@@ -69,6 +70,14 @@ export default function Nav() {
           >
             ◐
           </motion.button>
+          <a
+            href={profile.resume}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hidden rounded-full px-3 py-1.75 text-sm font-medium text-muted no-underline transition-colors hover:text-ink sm:block"
+          >
+            Resume
+          </a>
           <Button size="sm" arrow still aria-haspopup="dialog" onClick={() => setHireOpen(true)}>
             Hire me
           </Button>

@@ -39,6 +39,12 @@ const icon = {
       <path d="M8 11v5M8 8v.01M12 16v-5m0 2a2.5 2.5 0 0 1 5 0v3" />
     </>
   ),
+  resume: (
+    <>
+      <path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z" />
+      <path d="M14 3v5h5M9 13h6M9 17h4" />
+    </>
+  ),
 }
 
 const placeholders = {
@@ -442,15 +448,27 @@ export default function HireDialog({ open, onClose }) {
                 </a>
                 <CopyEmail />
               </span>
-              <a
-                href={profile.linkedin}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-2 font-semibold hover:text-accent sm:ml-auto"
-              >
-                <Ico d={icon.linkedin} className="size-4 text-muted" />
-                LinkedIn
-              </a>
+              {/* Kept together so they wrap as a pair, never one alone */}
+              <span className="flex items-center gap-4 sm:ml-auto">
+                <a
+                  href={profile.linkedin}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 font-semibold hover:text-accent"
+                >
+                  <Ico d={icon.linkedin} className="size-4 text-muted" />
+                  LinkedIn
+                </a>
+                <a
+                  href={profile.resume}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 font-semibold hover:text-accent"
+                >
+                  <Ico d={icon.resume} className="size-4 text-muted" />
+                  Resume
+                </a>
+              </span>
             </div>
           ) : null}
         </motion.div>

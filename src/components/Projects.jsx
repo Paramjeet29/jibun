@@ -217,7 +217,85 @@ function StepsDemo() {
   )
 }
 
-const demos = { trigger: TriggerDemo, bars: BarsDemo, steps: StepsDemo }
+/* ---------- Demo 4: split a trip, see who pays whom (Hoku) ---------- */
+const riders = ['Arjun', 'Meera', 'Kabir']
+const tripCosts = [
+  { item: 'Fuel', amount: 1800, paidBy: 'Arjun' },
+  { item: 'Homestay', amount: 4200, paidBy: 'Meera' },
+  { item: 'Dinner', amount: 1500, paidBy: 'Kabir' },
+]
+const inr = (n) => `₹${n.toLocaleString('en-IN')}`
+
+/** Equal split, then the fewest payments: the biggest debtor pays the biggest creditor first. */
+function settleUp(costs) {
+  const share = costs.reduce((s, c) => s + c.amount, 0) / riders.length
+  const bal = riders.map((name) => ({
+    name,
+    v: costs.filter((c) => c.paidBy === name).reduce((s, c) => s + c.amount, 0) - share,
+  }))
+  const owes = bal.filter((b) => b.v < 0).sort((a, b) => a.v - b.v)
+  const gets = bal.filter((b) => b.v > 0).sort((a, b) => b.v - a.v)
+  const out = []
+  let i = 0
+  let j = 0
+  while (i < owes.length && j < gets.length) {
+    const pay = Math.min(-owes[i].v, gets[j].v)
+    out.push({ from: owes[i].name, to: gets[j].name, amount: Math.round(pay) })
+    owes[i].v += pay
+    gets[j].v -= pay
+    if (owes[i].v > -0.5) i++
+    if (gets[j].v < 0.5) j++
+  }
+  return { share, out }
+}
+
+function SplitDemo() {
+  const id = useId()
+  const [costs, setCosts] = useState(tripCosts)
+  const { share, out } = settleUp(costs)
+
+  return (
+    <DemoBox label="Split a weekend ride" note="illustrative">
+      {costs.map((c, k) => (
+        <div key={c.item} className="mb-2 grid grid-cols-[1fr_72px_110px] items-center gap-2 text-md">
+          <label htmlFor={`${id}-${k}`}>{c.item}</label>
+          <span className="text-right font-mono text-xs font-medium tabular-nums">{inr(c.amount)}</span>
+          <select
+            id={`${id}-${k}`}
+            aria-label={`${c.item} paid by`}
+            value={c.paidBy}
+            onChange={(e) => setCosts((all) => all.map((x, n) => (n === k ? { ...x, paidBy: e.target.value } : x)))}
+          >
+            {riders.map((r) => (
+              <option key={r}>{r}</option>
+            ))}
+          </select>
+        </div>
+      ))}
+      <p className="mt-3.5 text-sm text-muted">
+        {inr(costs.reduce((s, c) => s + c.amount, 0))} total, {inr(share)} each. Pick who paid to see the settle-up.
+      </p>
+      <ul aria-live="polite" className="mt-3 grid gap-2">
+        {out.map((t) => (
+          <motion.li
+            key={`${t.from}-${t.to}-${t.amount}`}
+            initial={{ opacity: 0, y: 6 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.3, ease: easeOut }}
+            className="flex items-center justify-between gap-2 rounded-[10px] border border-rule bg-surface px-3 py-2.5 text-md"
+          >
+            <span>
+              <b className="font-semibold">{t.from}</b> pays <b className="font-semibold">{t.to}</b>
+            </span>
+            <span className="font-mono text-xs font-medium text-accent tabular-nums">{inr(t.amount)}</span>
+          </motion.li>
+        ))}
+      </ul>
+    </DemoBox>
+  )
+}
+
+const demos = { trigger: TriggerDemo, bars: BarsDemo, steps: StepsDemo, split: SplitDemo }
 
 export default function Projects() {
   return (
@@ -258,6 +336,17 @@ export default function Projects() {
                     </b>
                     <span className="max-w-[16ch] text-sm leading-[1.3] text-muted">{p.metricText}</span>
                   </div>
+                  {p.link ? (
+                    <a
+                      href={p.link.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="relative mt-5 inline-flex items-center gap-1.5 text-md font-semibold text-accent no-underline hover:underline"
+                    >
+                      {p.link.text}
+                      <span aria-hidden="true">↗</span>
+                    </a>
+                  ) : null}
                 </div>
                 <Demo />
               </TiltCard>
