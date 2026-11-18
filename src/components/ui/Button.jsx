@@ -8,7 +8,7 @@ const base =
 
 const variants = {
   primary:
-    'bg-grad border-transparent text-[#1a0d05] shadow-[0_8px_28px_-8px_color-mix(in_srgb,var(--accent)_70%,transparent)] hover:shadow-[0_12px_36px_-6px_color-mix(in_srgb,var(--accent)_80%,transparent)]',
+    'bg-grad border-transparent text-accent-ink shadow-[0_8px_28px_-8px_color-mix(in_srgb,var(--accent)_70%,transparent)] hover:shadow-[0_12px_36px_-6px_color-mix(in_srgb,var(--accent)_80%,transparent)]',
   ghost: 'border-current hover:bg-current/12',
   ghostStage: 'border-stage-border text-cream hover:bg-cream/10',
 }
@@ -18,9 +18,11 @@ const sizes = {
   sm: 'px-4 py-2 text-sm',
 }
 
-/** Link styled as a button that is pulled towards the cursor ("magnetic"). */
+/** Pulled towards the cursor ("magnetic"). With `href` it is a link; without one it is a real
+ *  <button> (type="button" unless you pass type="submit"), for actions like opening a dialog. */
 export default function Button({
   href,
+  type = 'button',
   variant = 'primary',
   size = 'md',
   arrow = false,
@@ -28,6 +30,7 @@ export default function Button({
   children,
   ...rest
 }) {
+  const Tag = href ? motion.a : motion.button
   const enabled = useFinePointer()
   const x = useMotionValue(0)
   const y = useMotionValue(0)
@@ -46,8 +49,8 @@ export default function Button({
   }
 
   return (
-    <motion.a
-      href={href}
+    <Tag
+      {...(href ? { href } : { type })}
       style={{ x: sx, y: sy }}
       onPointerMove={onPointerMove}
       onPointerLeave={reset}
@@ -61,6 +64,6 @@ export default function Button({
           →
         </span>
       )}
-    </motion.a>
+    </Tag>
   )
 }

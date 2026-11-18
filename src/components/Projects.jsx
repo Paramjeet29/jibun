@@ -129,8 +129,8 @@ function TriggerDemo() {
       <motion.pre
         key={edits}
         aria-label="Rule as JSON"
-        initial={edits ? { boxShadow: '0 0 0 3px rgba(255,106,61,1)' } : false}
-        animate={{ boxShadow: '0 0 0 0px rgba(255,106,61,0)' }}
+        initial={edits ? { boxShadow: '0 0 0 3px rgba(125,178,255,1)' } : false}
+        animate={{ boxShadow: '0 0 0 0px rgba(125,178,255,0)' }}
         transition={{ duration: 0.5 }}
         className="mt-3.5 overflow-x-auto rounded-[10px] border border-line bg-night p-3.5 font-mono text-xs leading-[1.6] text-cream"
       >

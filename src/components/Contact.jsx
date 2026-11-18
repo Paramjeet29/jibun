@@ -57,7 +57,7 @@ function CopyButton({ value, label }) {
       aria-label={done ? 'Copied' : label}
       title={label}
       className={`grid size-10 cursor-pointer place-items-center rounded-full border transition-colors ${
-        done ? 'border-live bg-live text-[#06210f]' : 'border-stage-border text-cream hover:border-amber hover:text-amber'
+        done ? 'border-ok bg-ok text-bg' : 'border-stage-border text-cream hover:border-amber hover:text-amber'
       }`}
     >
       <AnimatePresence mode="wait" initial={false}>
@@ -89,7 +89,7 @@ export default function Contact() {
     <section id="contact" className="relative isolate mt-16 overflow-hidden bg-night pt-14 pb-8 md:mt-24 md:pt-20 text-cream">
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute -top-40 -right-35 -z-10 size-120 animate-drift rounded-full bg-[#ff5a24] opacity-[calc(.35*var(--stage-glow))] blur-[90px] [animation-duration:18s]"
+        className="pointer-events-none absolute -top-40 -right-35 -z-10 size-120 animate-drift rounded-full bg-ember opacity-[calc(.35*var(--stage-glow))] blur-[90px] [animation-duration:18s]"
       />
       <div className="wrap">
         <span className="font-mono text-label text-amber">05 / CONTACT</span>
@@ -115,7 +115,7 @@ export default function Contact() {
           >
             <span
               aria-hidden="true"
-              className="grid size-11 place-items-center rounded-full border border-stage-border text-amber transition-all duration-250 group-hover:-rotate-8 group-hover:scale-106 group-hover:border-transparent group-hover:bg-grad-hero group-hover:text-[#1a0d05]"
+              className="grid size-11 place-items-center rounded-full border border-stage-border text-amber transition-all duration-250 group-hover:-rotate-8 group-hover:scale-106 group-hover:border-transparent group-hover:bg-grad-hero group-hover:text-accent-ink"
             >
               <svg viewBox="0 0 24 24" className={`size-5 ${svgClass}`}>
                 {icons[r.icon]}

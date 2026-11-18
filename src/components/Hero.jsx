@@ -84,7 +84,7 @@ export default function Hero() {
   // Spotlight that follows the cursor
   const mx = useMotionValue(320)
   const my = useMotionValue(260)
-  const spotlight = useMotionTemplate`radial-gradient(420px circle at ${mx}px ${my}px, rgba(255,154,31,.16), transparent 60%)`
+  const spotlight = useMotionTemplate`radial-gradient(420px circle at ${mx}px ${my}px, color-mix(in srgb, var(--amber) 16%, transparent), transparent 60%)`
 
   // Pointer position relative to the card stage, -0.5..0.5, smoothed
   const px = useMotionValue(0)
@@ -110,9 +110,9 @@ export default function Hero() {
       className="relative isolate overflow-hidden bg-night pt-10 text-cream sm:pt-16"
     >
       {/* Glow blobs (CSS keyframes) */}
-      <div aria-hidden="true" className="pointer-events-none absolute -top-40 -right-30 -z-20 size-130 animate-drift rounded-full bg-[#ff5a24] opacity-[calc(.55*var(--stage-glow))] blur-[70px]" />
-      <div aria-hidden="true" className="pointer-events-none absolute -bottom-30 left-[22%] -z-20 size-105 animate-drift rounded-full bg-[#ffa21f] opacity-[calc(.32*var(--stage-glow))] blur-[70px] [animation-delay:-6s] [animation-duration:20s]" />
-      <div aria-hidden="true" className="pointer-events-none absolute top-[30%] -left-35 -z-20 size-90 animate-drift rounded-full bg-[#5b3dff] opacity-[calc(.3*var(--stage-glow))] blur-[70px] [animation-delay:-12s] [animation-duration:24s]" />
+      <div aria-hidden="true" className="pointer-events-none absolute -top-40 -right-30 -z-20 size-130 animate-drift rounded-full bg-ember opacity-[calc(.55*var(--stage-glow))] blur-[70px]" />
+      <div aria-hidden="true" className="pointer-events-none absolute -bottom-30 left-[22%] -z-20 size-105 animate-drift rounded-full bg-amber opacity-[calc(.32*var(--stage-glow))] blur-[70px] [animation-delay:-6s] [animation-duration:20s]" />
+      <div aria-hidden="true" className="pointer-events-none absolute top-[30%] -left-35 -z-20 size-90 animate-drift rounded-full bg-secondary opacity-[calc(.3*var(--stage-glow))] blur-[70px] [animation-delay:-12s] [animation-duration:24s]" />
 
       {/* Faded grid */}
       <div

@@ -5,7 +5,7 @@ export const profile = {
   firstName: 'Paramjeet',
   lastName: 'Singh',
   status: 'Building at Wit By Bit, Kolkata',
-  email: 'preetbajwa2907@gmail.com',
+  email: 'singhparamjeet.dev@gmail.com',
   phone: '+91 9693512499',
   phoneDisplay: '+91 96935 12499',
   linkedin: 'https://www.linkedin.com/in/paramjeet-singh-dev',

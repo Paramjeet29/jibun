@@ -68,7 +68,7 @@ export default function Skills() {
                   onClick={() => selectCat(i)}
                   className={`relative flex w-full cursor-pointer items-center justify-between gap-2.5 rounded-[14px] border px-4.5 py-4 text-left font-semibold whitespace-nowrap transition-[translate,border-color,color] duration-250 ease-snap ${
                     selected
-                      ? 'z-10 border-transparent text-[#1a0d05] lg:translate-x-2.5'
+                      ? 'z-10 border-transparent text-accent-ink lg:translate-x-2.5'
                       : 'border-rule bg-surface text-ink hover:border-accent lg:hover:translate-x-1.5'
                   }`}
                 >
@@ -81,7 +81,7 @@ export default function Skills() {
                     />
                   )}
                   <span className="relative">{c.name}</span>
-                  <span className={`relative font-mono text-xs font-medium ${selected ? 'text-[#1a0d05]' : 'text-muted'}`}>
+                  <span className={`relative font-mono text-xs font-medium ${selected ? 'text-accent-ink' : 'text-muted'}`}>
                     {String(c.items.length).padStart(2, '0')}
                   </span>
                 </button>

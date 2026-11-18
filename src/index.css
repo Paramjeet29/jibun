@@ -2,73 +2,77 @@
 
 /* ---------- Theme tokens (light by default, dark via OS or toggle) ---------- */
 :root {
-  --bg: #f4f5f2;
-  --surface: #ffffff;
-  --ink: #12161d;
-  --muted: #586070;
-  --rule: #d6d9d3;
-  --accent: #e0400f;
-  --accent2: #ff9a1f;
-  --accent-ink: #ffffff;
-  --ok: #1a7f46;
+  /* Signal / Slate: cool slate neutrals, blue primary, violet secondary, cyan accent */
+  --bg: #f3f5f8;
+  --surface: #fafbfc;
+  --ink: #151a22;
+  --muted: #4f5b6b;
+  --rule: #d3d9e2;
+  --accent: #0a5cc2; /* primary: links, primary buttons */
+  --accent2: #0a7183; /* accent: highlights, the second stop of the brand gradient */
+  --secondary: #5748b8; /* secondary: tags, secondary actions */
+  --accent-ink: #f4f7fc; /* text on accent fills */
+  --ok: #1c7339;
 
-  /* "Stage" = the hero and contact bands. Warm cream in light mode. */
-  --night: #fbf7f1;
-  --cream: #12161d;
-  --haze: #586070;
-  --line: #e6e0d6;
-  --ember: #e0400f;
-  --amber: #b85400;
-  --stage-border: #d6cfc3;
-  --stage-card: rgb(255 255 255 / 0.78);
-  --stage-shadow: rgb(90 50 20 / 0.16);
+  /* "Stage" = the hero and contact bands. */
+  --night: #fafbfc;
+  --cream: #151a22;
+  --haze: #4f5b6b;
+  --line: #d3d9e2;
+  --ember: #0a5cc2;
+  --amber: #0a7183;
+  --stage-border: #d3d9e2;
+  --stage-card: rgb(250 251 252 / 0.78);
+  --stage-shadow: rgb(21 26 34 / 0.14);
   --stage-glow: 0.42;
 }
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --bg: #0c0f14;
-    --surface: #151a21;
-    --ink: #eef0eb;
-    --muted: #9aa3b0;
-    --rule: #262c36;
-    --accent: #ff6a3d;
-    --accent2: #ffb347;
-    --accent-ink: #0c0f14;
-    --ok: #4cd48a;
-    --night: #0a0d12;
-    --cream: #f3f1ec;
-    --haze: #a7aebb;
-    --line: #2a303b;
-    --ember: #ff6a3d;
-    --amber: #ffb347;
-    --stage-border: #3a4150;
-    --stage-card: rgb(24 29 38 / 0.72);
-    --stage-shadow: rgb(0 0 0 / 0.6);
+    --bg: #0f131a;
+    --surface: #171c25;
+    --ink: #e3e8f0;
+    --muted: #9aa5b5;
+    --rule: #2b3340;
+    --accent: #7db2ff;
+    --accent2: #4fd1e0;
+    --secondary: #b0a4ff;
+    --accent-ink: #0a1730;
+    --ok: #5fd38a;
+    --night: #0f131a;
+    --cream: #e3e8f0;
+    --haze: #9aa5b5;
+    --line: #2b3340;
+    --ember: #7db2ff;
+    --amber: #4fd1e0;
+    --stage-border: #2b3340;
+    --stage-card: rgb(23 28 37 / 0.72);
+    --stage-shadow: rgb(8 11 16 / 0.6);
     --stage-glow: 1;
     color-scheme: dark;
   }
 }
 
 :root[data-theme="dark"] {
-  --bg: #0c0f14;
-  --surface: #151a21;
-  --ink: #eef0eb;
-  --muted: #9aa3b0;
-  --rule: #262c36;
-  --accent: #ff6a3d;
-  --accent2: #ffb347;
-  --accent-ink: #0c0f14;
-  --ok: #4cd48a;
-  --night: #0a0d12;
-  --cream: #f3f1ec;
-  --haze: #a7aebb;
-  --line: #2a303b;
-  --ember: #ff6a3d;
-  --amber: #ffb347;
-  --stage-border: #3a4150;
-  --stage-card: rgb(24 29 38 / 0.72);
-  --stage-shadow: rgb(0 0 0 / 0.6);
+  --bg: #0f131a;
+  --surface: #171c25;
+  --ink: #e3e8f0;
+  --muted: #9aa5b5;
+  --rule: #2b3340;
+  --accent: #7db2ff;
+  --accent2: #4fd1e0;
+  --secondary: #b0a4ff;
+  --accent-ink: #0a1730;
+  --ok: #5fd38a;
+  --night: #0f131a;
+  --cream: #e3e8f0;
+  --haze: #9aa5b5;
+  --line: #2b3340;
+  --ember: #7db2ff;
+  --amber: #4fd1e0;
+  --stage-border: #2b3340;
+  --stage-card: rgb(23 28 37 / 0.72);
+  --stage-shadow: rgb(8 11 16 / 0.6);
   --stage-glow: 1;
   color-scheme: dark;
 }
@@ -82,6 +86,7 @@
   --color-rule: var(--rule);
   --color-accent: var(--accent);
   --color-accent2: var(--accent2);
+  --color-secondary: var(--secondary);
   --color-accent-ink: var(--accent-ink);
   --color-ok: var(--ok);
 
@@ -101,7 +106,7 @@
   --font-body: "Instrument Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
   --font-mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
 
-  --color-live: #29d17a;
+  --color-live: var(--ok);
 
   /* Fluid type scale: each size grows linearly from a 360px to a 1536px wide
      screen, then stops. Uses rem so browser zoom / font settings still apply. */
@@ -146,8 +151,8 @@
     to { transform: translateX(-50%); }
   }
   @keyframes live {
-    0% { box-shadow: 0 0 0 0 rgb(41 209 122 / 0.6); }
-    80%, 100% { box-shadow: 0 0 0 10px rgb(41 209 122 / 0); }
+    0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--ok) 60%, transparent); }
+    80%, 100% { box-shadow: 0 0 0 10px transparent; }
   }
   @keyframes ring {
     0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--accent) 55%, transparent); }
@@ -205,6 +210,10 @@
   html {
     scroll-behavior: smooth;
     scroll-padding-top: 72px;
+  }
+  /* The page behind an open dialog (Hire me) doesn't scroll. */
+  html:has(dialog[open]) {
+    overflow: hidden;
   }
   body {
     @apply bg-bg font-body text-ink antialiased;

@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { motion } from 'motion/react'
 import Button from './ui/Button.jsx'
+import HireDialog from './HireDialog.jsx'
 import { toggleTheme, useActiveSection } from '../hooks/index.js'
 
 const links = [
@@ -14,6 +15,7 @@ const ids = links.map(([id]) => id)
 export default function Nav() {
   const active = useActiveSection(ids)
   const [spins, setSpins] = useState(0)
+  const [hireOpen, setHireOpen] = useState(false)
 
   return (
     <header className="sticky top-0 z-30 border-b border-rule bg-bg/82 backdrop-blur-md">
@@ -67,9 +69,10 @@ export default function Nav() {
           >
             ◐
           </motion.button>
-          <Button href="#contact" size="sm" arrow>
+          <Button size="sm" arrow aria-haspopup="dialog" onClick={() => setHireOpen(true)}>
             Hire me
           </Button>
+          <HireDialog open={hireOpen} onClose={() => setHireOpen(false)} />
         </div>
       </div>
     </header>
