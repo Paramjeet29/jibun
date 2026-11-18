@@ -69,7 +69,7 @@ export default function Nav() {
           >
             ◐
           </motion.button>
-          <Button size="sm" arrow aria-haspopup="dialog" onClick={() => setHireOpen(true)}>
+          <Button size="sm" arrow still aria-haspopup="dialog" onClick={() => setHireOpen(true)}>
             Hire me
           </Button>
           <HireDialog open={hireOpen} onClose={() => setHireOpen(false)} />

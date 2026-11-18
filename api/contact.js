@@ -13,18 +13,7 @@
 // Upstash Redis env vars to make the limits hold across every instance of this function.
 
 import { clientIp, rateLimit } from './_ratelimit.js'
-
-const LIMITS = { name: 100, email: 200, message: 5000 }
-const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-
-/** Checks the form fields. Returns an error message, or null when they are fine. */
-export function validate({ name, email, message }) {
-  if (!name || !email || !message) return 'Please fill in your name, email and message'
-  if (name.length > LIMITS.name || email.length > LIMITS.email || message.length > LIMITS.message) return 'That is a bit too long'
-  if (!EMAIL_RE.test(email)) return 'That email address doesn’t look right'
-  if (message.length < 10) return 'Please write a little more'
-  return null
-}
+import { TOPICS, validate } from '../src/contactRules.js'
 
 const clean = (v) => (typeof v === 'string' ? v.trim() : '')
 
@@ -40,18 +29,20 @@ export default async function handler(req, res) {
 
   // One line for the name, so it can't add lines to the email subject.
   const fields = { name: clean(body.name).replace(/[\r\n]+/g, ' '), email: clean(body.email), message: clean(body.message) }
+  const topic = TOPICS.includes(body.topic) ? body.topic : null
   const problem = validate(fields)
-  if (problem) return res.status(400).json({ error: problem })
+  if (problem) return res.status(400).json(problem)
 
   const key = process.env.RESEND_API_KEY
   const to = process.env.CONTACT_TO
-  if (!key || !to) return res.status(500).json({ error: 'The contact form isn’t set up yet' })
+  // Error codes (not sentences): the dialog turns each one into a message with a way forward.
+  if (!key || !to) return res.status(500).json({ error: 'not_configured' })
 
   // Counted only for valid messages that would really be sent (see api/_ratelimit.js).
   const limited = await rateLimit(clientIp(req))
   if (!limited.ok) {
     res.setHeader('Retry-After', String(limited.retryAfter))
-    return res.status(429).json({ error: 'You’ve sent a few messages already. Please try again later' })
+    return res.status(429).json({ error: 'rate_limited', retryAfter: limited.retryAfter })
   }
 
   const r = await fetch('https://api.resend.com/emails', {
@@ -61,12 +52,12 @@ export default async function handler(req, res) {
       from: process.env.CONTACT_FROM || 'Portfolio <onboarding@resend.dev>',
       to: [to],
       reply_to: fields.email, // hitting Reply answers the person who wrote
-      subject: `Hire me: message from ${fields.name}`,
-      text: `${fields.message}\n\n— ${fields.name} <${fields.email}>\nSent from the Hire me form on your portfolio`,
+      subject: `Hire me${topic ? ` · ${topic}` : ''}: message from ${fields.name}`,
+      text: `${topic ? `Topic: ${topic}\n\n` : ''}${fields.message}\n\n— ${fields.name} <${fields.email}>\nSent from the Hire me form on your portfolio`,
     }),
   }).catch(() => null)
 
-  if (!r || !r.ok) return res.status(502).json({ error: 'Your message couldn’t be sent' })
+  if (!r || !r.ok) return res.status(502).json({ error: 'send_failed' })
   return res.status(200).json({ ok: true })
 }
 

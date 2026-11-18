@@ -25,6 +25,8 @@
   --stage-card: rgb(250 251 252 / 0.78);
   --stage-shadow: rgb(21 26 34 / 0.14);
   --stage-glow: 0.42;
+  --danger: #b3261e; /* errors (Signal / Slate) */
+  --danger-bg: #f9e0dd;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -49,6 +51,8 @@
     --stage-card: rgb(23 28 37 / 0.72);
     --stage-shadow: rgb(8 11 16 / 0.6);
     --stage-glow: 1;
+    --danger: #ff8f85;
+    --danger-bg: #33191a;
     color-scheme: dark;
   }
 }
@@ -74,6 +78,8 @@
   --stage-card: rgb(23 28 37 / 0.72);
   --stage-shadow: rgb(8 11 16 / 0.6);
   --stage-glow: 1;
+  --danger: #ff8f85;
+  --danger-bg: #33191a;
   color-scheme: dark;
 }
 
@@ -89,6 +95,8 @@
   --color-secondary: var(--secondary);
   --color-accent-ink: var(--accent-ink);
   --color-ok: var(--ok);
+  --color-danger: var(--danger);
+  --color-danger-bg: var(--danger-bg);
 
   /* Hero + contact colours, also theme-aware */
   --color-night: var(--night);
